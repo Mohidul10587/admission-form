@@ -232,7 +232,9 @@ export default function AdminDashboard() {
                     <td className="px-3 py-2">{submission.phone}</td>
 
                     <td className="px-3 py-2">{submission.transactionId}</td>
-                    <td className="px-3 py-2">{submission.paymentAmount}</td>
+                    <td className="px-3 py-2">
+                      {submission.paymentAmount} টাকা
+                    </td>
                     <td className="px-3 py-2">
                       <span
                         className={`px-2 py-1 rounded text-xs font-semibold ${
