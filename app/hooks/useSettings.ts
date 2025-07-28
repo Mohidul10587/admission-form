@@ -1,13 +1,8 @@
 import { useState, useEffect } from "react";
+import { defaultSettings } from "../shared/defaultData";
 
 export function useSettings() {
-  const [settings, setSettings] = useState<Settings>({
-    logoUrl: "",
-    primaryColor: "59 130 246",
-    paymentAmount: 0,
-    whatsapp: "",
-    sendMonyNumbers: [],
-  });
+  const [settings, setSettings] = useState<Settings>(defaultSettings);
 
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);

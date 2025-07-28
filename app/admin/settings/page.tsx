@@ -19,18 +19,10 @@ import {
   ImageIcon,
   LayoutDashboard,
 } from "lucide-react";
-import Settings from "@/lib/models/Settings";
+import { defaultSettings } from "@/app/shared/defaultData";
 
 export default function AdminSettings() {
-  const [settings, setSettings] = useState<Settings>({
-    logoUrl: "",
-    primaryColor: "#3b82f6",
-    paymentAmount: 0,
-    sendMonyNumbers: [],
-    whatsapp: "",
-    email: "",
-    rulesAndCommands: [],
-  });
+  const [settings, setSettings] = useState<Settings>(defaultSettings);
 
   const [logoFile, setLogoFile] = useState<File | null>(null);
   const [logoPreview, setLogoPreview] = useState<string>("");

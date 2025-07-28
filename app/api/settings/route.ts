@@ -30,21 +30,16 @@ export async function POST(request: NextRequest) {
     }
 
     await dbConnect();
-
     const body = await request.json();
 
-    let settings = await Settings.findOne();
-    if (!settings) {
-      settings = new Settings(body);
-    } else {
-      Object.assign(settings, body);
-      settings.updatedAt = new Date();
-    }
+    const updatedSettings = await Settings.findOneAndUpdate({}, body, {
+      new: true,
+      upsert: true,
+    });
 
-    await settings.save();
-
-    return NextResponse.json({ success: true, settings });
+    return NextResponse.json({ success: true, settings: updatedSettings });
   } catch (error) {
+    console.error(error);
     return NextResponse.json(
       { error: "Failed to update settings" },
       { status: 500 }
