@@ -11,7 +11,7 @@ export async function getSettings(): Promise<Settings> {
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_BASE_URL}/api/settings`,
       {
-        next: { revalidate: 60 },
+        cache: "no-store",
       }
     );
 
