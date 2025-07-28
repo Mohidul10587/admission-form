@@ -15,7 +15,7 @@ export function useSettings() {
         const response = await fetch("/api/settings", {});
 
         if (!response.ok) {
-          throw new Error("Failed to fetch settings");
+          throw new Error("Failed to fetch settings hooks");
         }
 
         const data = await response.json();

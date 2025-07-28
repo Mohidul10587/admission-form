@@ -16,7 +16,7 @@ export async function GET(request: NextRequest) {
     return NextResponse.json(settings);
   } catch (error) {
     return NextResponse.json(
-      { error: "Failed to fetch settings" },
+      { error: "Failed to fetch settings server" },
       { status: 500 }
     );
   }

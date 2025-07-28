@@ -16,7 +16,7 @@ export async function getSettings(): Promise<Settings> {
     );
 
     if (!res.ok) {
-      throw new Error("Failed to fetch settings");
+      throw new Error("Failed to fetch settings  shared");
     }
 
     const data = await res.json();
