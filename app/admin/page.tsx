@@ -18,7 +18,7 @@ import Link from "next/link";
 
 // ✅ Cookie Utility (ensure this function is defined or imported)
 import { getCookie } from "cookies-next";
-import SubmissionModal from "./SubmissionModal";
+import SubmissionModal from "@/components/SubmissionModal";
 
 // ✅ SWR Fetcher function
 const fetcher = async (url: string) => {
@@ -57,12 +57,9 @@ export default function AdminDashboard() {
   );
 
   const submissions: Submission[] = data?.submissions || [];
-  const totalAmount: number = data?.finalTotalAmount || 0;
-  const stats: Stats = data?.stats || {
-    total: 0,
-    verified: 0,
-    pending: 0,
-  };
+  const total: number = data?.total || 0;
+  const verified: number = data?.verified || 0;
+  const pending: number = data?.pending || 0;
 
   // Redirect on 401
   if (error?.status === 401) {
@@ -137,34 +134,23 @@ export default function AdminDashboard() {
             {
               icon: Users,
               label: "মোট আবেদন",
-              value: stats.total,
+              value: total,
               color: "text-blue-600",
               bg: "bg-blue-200",
             },
             {
               icon: CheckCircle,
               label: "পেমেন্ট ভেরিফাইড",
-              value: stats.verified,
+              value: verified,
               color: "text-green-600",
               bg: "bg-green-200",
             },
             {
               icon: Clock,
               label: "পেমেন্ট পেন্ডিং",
-              value: stats.pending,
+              value: pending,
               color: "text-yellow-600",
               bg: "bg-yellow-200",
-            },
-            {
-              icon: Check,
-              label: !verifiedParam
-                ? "মোট পেমেন্ট"
-                : verifiedParam === "true"
-                ? "মোট ভেরিফায়েড পেমেন্ট"
-                : "মোট নন-ভেরিফায়েড পেমেন্ট",
-              value: totalAmount,
-              color: "text-purple-600",
-              bg: "bg-purple-200",
             },
           ].map(({ icon: Icon, label, value, color, bg }) => (
             <div
@@ -232,9 +218,7 @@ export default function AdminDashboard() {
                     <td className="px-3 py-2">{submission.phone}</td>
 
                     <td className="px-3 py-2">{submission.transactionId}</td>
-                    <td className="px-3 py-2">
-                      {submission.paymentAmount} টাকা
-                    </td>
+
                     <td className="px-3 py-2">
                       <span
                         className={`px-2 py-1 rounded text-xs font-semibold ${
@@ -256,7 +240,7 @@ export default function AdminDashboard() {
                       {!submission.paymentVerified ? (
                         <button
                           onClick={() =>
-                            updatePaymentStatus(submission._id, true)
+                            updatePaymentStatus(submission._id as string, true)
                           }
                           className="bg-green-600 text-white px-2 py-1 rounded hover:bg-green-700  w-20"
                         >
@@ -265,7 +249,7 @@ export default function AdminDashboard() {
                       ) : (
                         <button
                           onClick={() =>
-                            updatePaymentStatus(submission._id, false)
+                            updatePaymentStatus(submission._id as string, false)
                           }
                           className="border border-gray-300 px-2 py-1 rounded bg-red-500 text-white w-20"
                         >
@@ -335,7 +319,7 @@ export default function AdminDashboard() {
                     {!submission.paymentVerified ? (
                       <button
                         onClick={() =>
-                          updatePaymentStatus(submission._id, true)
+                          updatePaymentStatus(submission._id as string, true)
                         }
                         className="bg-green-600 text-white px-2 py-1 rounded hover:bg-green-700"
                       >
@@ -344,7 +328,7 @@ export default function AdminDashboard() {
                     ) : (
                       <button
                         onClick={() =>
-                          updatePaymentStatus(submission._id, false)
+                          updatePaymentStatus(submission._id as string, false)
                         }
                         className="border border-gray-300 px-2 py-1 rounded hover:bg-gray-100"
                       >
@@ -355,7 +339,7 @@ export default function AdminDashboard() {
                 </div>
               ))}
             </div>
-            {stats.total > 10 && (
+            {total > 10 && (
               <div className="mt-6 flex justify-center items-center space-x-4">
                 <button
                   onClick={() => {
@@ -370,16 +354,16 @@ export default function AdminDashboard() {
                 </button>
 
                 <span className="text-sm">
-                  পৃষ্ঠা {currentPage} / {Math.ceil(stats.total / 10)}
+                  পৃষ্ঠা {currentPage} / {Math.ceil(total / 10)}
                 </span>
 
                 <button
                   onClick={() => {
-                    if (currentPage < Math.ceil(stats.total / 10)) {
+                    if (currentPage < Math.ceil(total / 10)) {
                       router.push(`?page=${currentPage + 1}`);
                     }
                   }}
-                  disabled={currentPage >= Math.ceil(stats.total / 10)}
+                  disabled={currentPage >= Math.ceil(total / 10)}
                   className="px-4 py-2 text-sm border rounded disabled:opacity-50"
                 >
                   পরবর্তী
@@ -392,7 +376,7 @@ export default function AdminDashboard() {
         {/* Modal */}
         {selectedSubmission && (
           <SubmissionModal
-            submission={selectedSubmission}
+            submissionId={selectedSubmission._id as string}
             onClose={() => setSelectedSubmission(null)}
           />
         )}

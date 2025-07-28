@@ -6,33 +6,8 @@ import { getTokenFromRequest, verifyToken } from "@/lib/auth";
 export async function POST(request: NextRequest) {
   try {
     await dbConnect();
-
     const body = await request.json();
-
-    // Validate required fields
-    const requiredFields = [
-      "name",
-      "address",
-      "phone",
-      "transactionId",
-      "gender",
-      "category",
-      "imageUrl",
-      "paymentAmount",
-    ];
-    for (const field of requiredFields) {
-      if (!body[field]) {
-        return NextResponse.json(
-          { error: `Missing required field: ${field}` },
-          { status: 400 }
-        );
-      }
-    }
-
-    const submission = new Submission(body);
-
-    await submission.save();
-
+    const submission = await Submission.create(body);
     return NextResponse.json(
       { success: true, id: submission._id },
       { status: 201 }
@@ -66,27 +41,20 @@ export async function GET(request: NextRequest) {
     if (verifiedParam === "true") filter.paymentVerified = true;
     else if (verifiedParam === "false") filter.paymentVerified = false;
 
-    const [submissions, total, totalAmount] = await Promise.all([
+    const [submissions, total, verified, pending] = await Promise.all([
       Submission.find(filter)
+        .select("imageUrl name phone transactionId paymentVerified")
         .sort({ createdAt: -1 })
         .skip(skip)
         .limit(limit)
         .lean(),
       Submission.countDocuments(),
-      Submission.aggregate([
-        { $match: filter },
-        { $group: { _id: null, totalAmount: { $sum: "$paymentAmount" } } },
-      ]),
+      Submission.countDocuments({ paymentVerified: true }),
+      Submission.countDocuments({ paymentVerified: false }),
     ]);
 
-    const stats = {
-      total,
-      verified: await Submission.countDocuments({ paymentVerified: true }),
-      pending: await Submission.countDocuments({ paymentVerified: false }),
-    };
-    const finalTotalAmount = total > 0 ? totalAmount[0]?.totalAmount || 0 : 0;
     return NextResponse.json(
-      { submissions, stats, finalTotalAmount },
+      { submissions, total, verified, pending },
       {
         headers: {
           "Cache-Control": "no-store, max-age=0",

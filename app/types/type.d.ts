@@ -1,20 +1,37 @@
 interface Submission {
-  _id: string;
+  _id?: string;
   name: string;
-  address: string;
   phone: string;
   transactionId: string;
   gender: string;
   category: string;
   imageUrl: string;
   paymentVerified: boolean;
-  selected: boolean;
   createdAt: string;
-  paymentAmount: number;
+
+  // নতুন যুক্ত করা প্রপার্টিগুলো
+  fatherName: string;
+  motherName: string;
+  dateOfBirth: string;
+  presentAddress: string;
+  village: string;
+  upazila: string;
+  district: string;
+  division: string;
 }
 
 interface Stats {
   total: number;
   verified: number;
   pending: number;
+}
+interface Settings {
+  logoUrl: string;
+  primaryColor: string;
+  whatsapp: string;
+  paymentAmount: number;
+  sendMonyNumbers: string[];
+  rulesAndCommands: string[];
+
+  email: string;
 }

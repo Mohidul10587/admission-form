@@ -1,12 +1,8 @@
 import mongoose from "mongoose";
 
-const SubmissionSchema = new mongoose.Schema(
+const SubmissionSchema = new mongoose.Schema<Submission>(
   {
     name: {
-      type: String,
-      required: true,
-    },
-    address: {
       type: String,
       required: true,
     },
@@ -20,25 +16,51 @@ const SubmissionSchema = new mongoose.Schema(
     },
     gender: {
       type: String,
-      enum: ["পুরুষ", "মহিলা", "অন্যান্য"],
       required: true,
     },
     category: {
       type: String,
-      enum: ["গান", "নৃত্য", "অভিনয়"],
       required: true,
     },
     imageUrl: {
       type: String,
       required: true,
     },
-    paymentAmount: {
-      type: Number,
-      required: true,
-    },
     paymentVerified: {
       type: Boolean,
       default: false,
+    },
+    fatherName: {
+      type: String,
+      required: true,
+    },
+    motherName: {
+      type: String,
+      required: true,
+    },
+    dateOfBirth: {
+      type: String,
+      required: true,
+      // You can validate the format with regex if needed
+    },
+    presentAddress: {
+      type: String,
+    },
+    village: {
+      type: String,
+      required: true,
+    },
+    upazila: {
+      type: String,
+      required: true,
+    },
+    district: {
+      type: String,
+      required: true,
+    },
+    division: {
+      type: String,
+      required: true,
     },
   },
   { timestamps: true }

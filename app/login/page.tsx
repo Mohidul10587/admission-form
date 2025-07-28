@@ -25,7 +25,7 @@ export default function AdminLogin() {
         document.cookie = `admin-token=${token}; path=/; max-age=${
           7 * 24 * 60 * 60
         }`;
-        router.push("/admin/dashboard");
+        router.push("/admin");
       } else {
         alert("ইমেইল বা পাসওয়ার্ড ভুল");
       }

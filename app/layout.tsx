@@ -2,6 +2,9 @@ import type React from "react";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import Image from "next/image";
+import Link from "next/link";
+import { Header } from "@/components/Header";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -31,11 +34,7 @@ export default function RootLayout({
   return (
     <html lang="bn" suppressHydrationWarning>
       <body className={inter.className} suppressHydrationWarning>
-        <header className="bg-blue-600 text-white p-4 shadow-md">
-          <div className="container mx-auto text-xl font-semibold">
-            ভর্তি ফরম সিস্টেম
-          </div>
-        </header>
+        <Header />
 
         <main className="min-h-screen">{children}</main>
 
