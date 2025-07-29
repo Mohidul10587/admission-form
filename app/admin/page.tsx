@@ -198,7 +198,7 @@ export default function AdminDashboard() {
                   <th className="px-3 py-2 text-left">নাম</th>
                   <th className="px-3 py-2 text-left">ফোন</th>
 
-                  <th className="px-3 py-2 text-left">ট্রানজেকশন আইডি</th>
+                  <th className="px-3 py-2 text-left">সেন্ড মানি নাম্বার</th>
                   <th className="px-3 py-2 text-left">পেমেন্ট</th>
                   <th className="px-3 py-2 text-left">স্ট্যাটাস</th>
                   <th className="px-3 py-2 text-left">অ্যাকশন</th>
@@ -291,7 +291,7 @@ export default function AdminDashboard() {
                       {submission.gender}
                     </p>
                     <p>
-                      <span className="font-medium">ট্রানজ্যাকশন আইডি:</span>{" "}
+                      <span className="font-medium">সেন্ড মানি নাম্বার:</span>{" "}
                       {submission.transactionId}
                     </p>
                     <p>

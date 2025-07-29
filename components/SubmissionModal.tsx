@@ -85,7 +85,7 @@ export default function SubmissionModal({
               <strong>লিঙ্গ:</strong> {submission.gender}
             </p>
             <p>
-              <strong>ট্রানজেকশন আইডি:</strong> {submission.transactionId}
+              <strong>সেন্ড মানি নাম্বার:</strong> {submission.transactionId}
             </p>
             <p>
               <strong>বর্তমান ঠিকানা:</strong> {submission.presentAddress}

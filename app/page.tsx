@@ -177,6 +177,14 @@ export default function HomePage() {
                   নিবন্ধন ফর্ম
                 </h2>
               </div>
+              <div className="mt-2 px-4 py-2 bg-blue-50 rounded-lg border border-blue-200">
+                <Link href={"/contact"}>
+                  <p className="text-sm text-blue-800 font-medium">
+                    💡 যে কোনো প্রয়োজনে আমাদের সাথে যোগাযোগ করতে এখানে ক্লিক
+                    করুন।
+                  </p>
+                </Link>
+              </div>
 
               <div className="px-8 py-8">
                 <form onSubmit={handleSubmit} className="space-y-8">
@@ -524,19 +532,20 @@ export default function HomePage() {
                       পেমেন্ট তথ্য
                     </h3>
 
-                    <div className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl p-6 border border-green-200">
-                      <p className="text-lg font-semibold text-gray-800 mb-4">
-                        নিচের নাম্বারে {settings?.paymentAmount || "০"} টাকা
-                        পাঠান এবং ট্রানজেকশন আইডিটি কপি করে নিচে দিয়ে দেন
+                    <div className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl p-2 border border-green-200">
+                      <p className=" text-gray-800 mb-4">
+                        নিচে দেওয়া নাম্বারে {settings?.paymentAmount || "০"}{" "}
+                        টাকা সেন্ড মানি করুন এবং আপনি যে নাম্বার থেকে টাকা
+                        পাঠিয়েছেন সেই নাম্বারটি নিচে লিখে সাবমিট করুন....
                       </p>
 
                       <div className="space-y-3">
                         {numbers.map((num, idx) => (
                           <div
                             key={idx}
-                            className="flex items-center justify-between bg-white rounded-lg p-4 border border-green-200 shadow-sm"
+                            className="flex items-center justify-between bg-white rounded-lg p-2 border border-green-200 shadow-sm"
                           >
-                            <span className="font-mono text-lg font-semibold text-gray-800">
+                            <span className="font-mono  text-gray-800">
                               {num}
                             </span>
                             <button
@@ -569,7 +578,7 @@ export default function HomePage() {
                         htmlFor="transactionId"
                         className="block text-sm font-medium text-gray-700 mb-2"
                       >
-                        ট্রানজেকশন আইডি *
+                        যে নাম্বার থেকে টাকা পাঠিয়েছেন সেই নাম্বারটি লিখুন*
                       </label>
                       <input
                         type="text"
@@ -578,7 +587,8 @@ export default function HomePage() {
                         onChange={(e) =>
                           handleInputChange("transactionId", e.target.value)
                         }
-                        placeholder="পেমেন্টের ট্রানজেকশন আইডি"
+                        placeholder="যে নাম্বার থেকে টাকা
+                        পাঠিয়েছেন সেই নাম্বারটি"
                         required
                         className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
                       />
@@ -630,7 +640,8 @@ export default function HomePage() {
                 <div className="mt-6 p-4 bg-blue-50 rounded-lg border border-blue-200">
                   <Link href={"/contact"}>
                     <p className="text-sm text-blue-800 font-medium">
-                      💡 সাহায্যের প্রয়োজন? আমাদের সাথে যোগাযোগ করুন।
+                      💡 যে কোনো প্রয়োজনে আমাদের সাথে যোগাযোগ করতে এখানে ক্লিক
+                      করুন।
                     </p>
                   </Link>
                 </div>
